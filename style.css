@@ -91,6 +91,15 @@ body {
     width: 100%;
 }
 
+.error {
+    visibility: hidden;
+}
+
+.error.invalid {
+    visibility: visible;
+    transition: visibility 1000ms;
+}
+
 .form input,
 .form select {
     height: 32px;
@@ -100,7 +109,15 @@ body {
 .form textarea,
 .form select {
     padding: 5px;
+    outline: none;
     border: none;
+    transition: border 1000ms;
+}
+
+.form input.invalid,
+.form textarea.invalid,
+.form select.invalid {
+    border: #DB5F05 3px solid;
 }
 
 .form__name {
@@ -147,7 +164,14 @@ body {
     flex-wrap: wrap;
 }
 
+.form__checkbox label {
+    width: 90%;
+}
+
 .form__checkbox input {
+    display: block;
+    margin: 0;
+    padding: 0;
     margin-right: 12px;
 }
 
@@ -169,6 +193,11 @@ body {
     background-color: #DB5F05;
     border: none;
     border-radius: 0px 20.5px;
+}
+
+.form__submit button:hover {
+    color: #DB5F05;
+    background-color: white;
 }
 
 

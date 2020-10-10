@@ -76,7 +76,7 @@ body {
     grid-template-rows: auto auto auto auto;
     grid-template-columns: 1fr 1fr 1fr 1fr;
 
-    row-gap: 6px;
+    row-gap: 12px;
     column-gap: 24px;
 }
 
@@ -91,14 +91,14 @@ body {
     width: 100%;
 }
 
-.error {
+/* .error {
     visibility: hidden;
 }
 
 .error.invalid {
     visibility: visible;
     transition: visibility 1000ms;
-}
+} */
 
 .form input,
 .form select {

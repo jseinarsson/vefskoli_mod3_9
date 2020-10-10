@@ -1,64 +1,43 @@
-// const form = document.querySelector(".contact__form");
-
-// const name = document.getElementById("name");
-// // const email = document.getElementById("email");
-// // const content = document.getElementById("content");
-// // const message = document.getElementById("message");
-// // const checkbox = document.getElementById("checkbox");
-
-// const inputs = document.querySelectorAll('input, select, textarea');
-
-// form.addEventListener('submit', (e) => {
-//     //inputs.setCustomValidity("");
-    
-
-
-
-//     e.preventDefault();
-
-//     console.log('blah');
-// });
-
-// const form = document.querySelector(".contact__form");
-// const name = document.getElementById("name");
-
-// form.addEventListener('submit', (e) => {
-//     name.setCustomValidity("");
-//     if (!name.checkValidity()) {
-//         name.setCustomValidity("This blows");
-//         console.log("Invalid!");
-//     } else {
-//         e.preventDefault();
-//         console.log("Valid!");
-//     }
-// });
-
 const customMessages = {
-    valueMissing: 'Hey! Fill this out!',
-    emailMismatch: 'Invalid email!',
+    nameMessage: 'Please tell us what to call you',
+    emailMessage: 'Please provide a valid e-mail address',
+    contentMessage: 'Please let us know what this is concerning',
+    messageMessage: "Really? You've come all this way, you've got to tell us something!",
+    checkboxMessage: 'Say it! Say tomatoes are a fruit.',
 }
 
-function getCustomMessage (type, validity) {
-    if (validity.typeMismatch) {
-        return customMessages [`${type}Mismatch`]
-    } else {
-        for (const invalidKey in customMessages) {
-            if (validity[invalidKey]) {
-                return customMessages[invalidKey]
-            }
-        }
-    }
-}
-
-var inputs = document.querySelectorAll('input, select, textarea');
+const validationErrorClass = 'error'
+const parentErrorClass = 'has-error'
+const inputs = document.querySelectorAll('input, select, textarea');
 
 inputs.forEach(function (input) {
-    function checkValidity () {
-        const message = input.validity.validity
-            ? null
-            : getCustomMessage(input.type, input.validity, customMessages)
-        input.setCustomValidity(message || '')
+
+    function checkValidity (options) {
+        const insertError = options.insertError;
+        const parent = input.parentNode;
+        const error = parent.querySelector(`.${validationErrorClass}`)
+            || document.createElement('p');
+        
+        if (!input.validity.valdi && input.validationMessage) {
+            error.className = validationErrorClass;
+            error.textContent = customMessages[`${input.id}Message`];
+
+            if (insertError) {
+                parent.appendChild(error);
+                parent.classList.add(parentErrorClass);
+            }
+        } else {
+            parent.classList.remove(parentErrorClass);
+            error.remove();
+        }
     }
-    input.addEventListener('input', checkValidity);
-    input.addEventListener('invalid', checkValidity);
+
+    input.addEventListener('input', function () {
+        checkValidity({insertError: false});
+    });
+
+    input.addEventListener('invalid', function (e) {
+        e.preventDefault();
+        checkValidity({insertError: true});
+    });
 });

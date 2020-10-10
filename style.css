@@ -76,7 +76,7 @@ body {
     grid-template-rows: auto auto auto auto;
     grid-template-columns: 1fr 1fr 1fr 1fr;
 
-    row-gap: 12px;
+    row-gap: 6px;
     column-gap: 24px;
 }
 
